@@ -13,7 +13,8 @@ public class Solution {
             var currentUpdate = currentDigit;
             if (i == 1 && invokeCarry) {
                 System.out.println("need extra digit");
-                arrayInt[digits.length] = currentDigit + 1;
+//                arrayInt[digits.length] = currentDigit + 1;
+                arrayInt[digits.length] = 1;
             }
             if (i == digits.length || invokeCarry) {
                 var increment = currentDigit + 1;
@@ -32,6 +33,13 @@ public class Solution {
 
         System.out.println("new thing");
         System.out.println(Arrays.toString(arrayInt));
-        return digits;
+
+        var solution = new int[arrayInt.length];
+
+        for (int i = 0; i < arrayInt.length; i++) {
+            solution[i] = arrayInt[arrayInt.length - 1 - i];
+        }
+
+        return solution;
     }
 }
