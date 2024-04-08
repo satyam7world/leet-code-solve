@@ -11,24 +11,19 @@ public class Solution {
             digits[digits.length - 1] = lastDigit + 1;
             return digits;
         } else { // needs to change the second last element
-            System.out.println("digit length " + digits.length);
-            // this may get complicated if the second last is also 9
-            var arrayR = new int[digits.length + 1];
-            var carriageLoad = false;
-            for (int i = digits.length; i > 0; i--) {
-                var currentDigit = digits[i - 1];
-                System.out.println("current Digit = " + currentDigit);
-                if (carriageLoad) {
-                    arrayR[i] = currentDigit + 1;
-                    carriageLoad = false;
-                }
-                if (currentDigit == 9) {
-                    arrayR[i] = 0;
-                    carriageLoad = true;
-                }
+            StringBuilder toString = new StringBuilder();
+            for (int i : digits) {
+                toString.append(i);
             }
-            System.out.println(Arrays.toString(arrayR));
+            Integer before = Integer.valueOf(toString.toString());
+            int finalInt = before + 1;
+            var responseBack = new int[String.valueOf(finalInt).length()];
+            var charArr = String.valueOf(finalInt).toCharArray();
+            for (int i = 0; i < charArr.length; i++) {
+                System.out.println(charArr[i]);
+                responseBack[i] = Integer.valueOf(String.valueOf(charArr[i]));
+            }
+            return responseBack;
         }
-        return digits;
     }
 }
