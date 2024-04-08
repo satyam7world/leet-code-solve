@@ -1,29 +1,32 @@
 package org.example;
 
-import java.sql.Array;
 import java.util.Arrays;
 
 public class Solution {
     public int[] plusOne(int[] digits) {
         // check if last digit is not nine
         var lastDigit = digits[digits.length - 1];
-        if (lastDigit != 9) {
-            digits[digits.length - 1] = lastDigit + 1;
-            return digits;
-        } else { // needs to change the second last element
-            StringBuilder toString = new StringBuilder();
-            for (int i : digits) {
-                toString.append(i);
+        var invokeCarry = false;
+        var arrayInt = new int[digits.length];
+        for (int i = digits.length; i > 0; i--) {
+            var currentDigit = digits[i - 1];
+            var currentUpdate = currentDigit;
+            if (i == digits.length || invokeCarry) {
+                var increment = currentDigit + 1;
+                if (increment == 10) { // send a carry
+                    System.out.println(0);
+                    invokeCarry = true;
+                    continue;
+                }
+                currentUpdate = increment;
+//                arrayInt[digits.length - i] = increment;
             }
-            Integer before = Integer.valueOf(toString.toString());
-            int finalInt = before + 1;
-            var responseBack = new int[String.valueOf(finalInt).length()];
-            var charArr = String.valueOf(finalInt).toCharArray();
-            for (int i = 0; i < charArr.length; i++) {
-                System.out.println(charArr[i]);
-                responseBack[i] = Integer.valueOf(String.valueOf(charArr[i]));
-            }
-            return responseBack;
+            arrayInt[digits.length - i] = currentUpdate;
+            invokeCarry = false;
         }
+
+        System.out.println("new thing");
+        System.out.println(Arrays.toString(arrayInt));
+        return digits;
     }
 }
