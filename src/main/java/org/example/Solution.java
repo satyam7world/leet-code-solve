@@ -1,48 +1,37 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 public class Solution {
-    public int romanToInt(String s) {
-        ArrayList<Integer> algebra = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            char currentChar = s.charAt(i);
-            int intValue = charToInt(currentChar);
-            if (i < (s.length() - 1)) {
-                int nextInt = s.charAt(i + 1);
-                if (nextInt > intValue) {
-                    intValue *= -1;
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> results =
+                new HashSet<List<Integer>>();
+//        List<? extends List<Integer>> results = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 1; j < nums.length; j++) {
+                for (int k = 2; k < nums.length; k++) {
+                    HashSet<Integer> indexSet = new HashSet<>();
+                    indexSet.add(i);
+                    indexSet.add(j);
+                    indexSet.add(k);
+                    if (indexSet.size() != 3) {
+                        continue;
+                    }
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+//                        System.out.println(" " + i + " " + j + " " + k);
+                        List<Integer> newList = new ArrayList<Integer>();
+                        newList.add(nums[i]);
+                        newList.add(nums[j]);
+                        newList.add(nums[k]);
+
+                        Collections.sort(newList);
+
+                        results.add(newList);
+                    }
                 }
             }
-            algebra.add(intValue);
         }
-        int answer = 0;
-        for (int i : algebra) {
-            answer += i;
-        }
-        return answer;
-    }
-
-    int charToInt(char i) {
-        switch (i) {
-            case 'I':
-                return 1;
-            case 'V':
-                return 5;
-            case 'X':
-                return 10;
-            case 'L':
-                return 50;
-            case 'C':
-                return 100;
-            case 'D':
-                return 500;
-            case 'M':
-                return 1000;
-
-            default:
-                return 0;
-        }
+        return results.stream().toList();
     }
 }
