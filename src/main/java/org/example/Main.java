@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         var sol = new Solution();
-        var helloIndia = sol.isMatch("aa", "a");
+        var helloIndia = sol.isMatch("abc", "a***abc");
         System.out.println("final response");
         System.out.println(helloIndia);
     }
