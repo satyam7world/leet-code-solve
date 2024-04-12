@@ -3,41 +3,36 @@ package org.example;
 import java.util.*;
 
 class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        Set<List<Integer>> result = new HashSet<>();
-        if (target % 2 == 0) {
-            for (int i : candidates) {
-                if (target % i == 0) {
-                    int times = target / i;
-//                    System.out.println("int => " + i);
-//                    System.out.println("times => " + times);
-                    List<Integer> temp = new ArrayList<>();
-                    for (int k = 0; k < times; k++) {
-                        temp.add(times);
-                    }
-                    result.add(temp);
+    public boolean checkRecord(String s) {
+        char[] record = s.toCharArray();
+        char lastRecord = 'X';
+        int totalAbsentDays = 0;
+        int lateConsecutive = 1;
+        for (char r : record) {
+            if (r == 'A') {
+                totalAbsentDays++;
+            }
+            if (totalAbsentDays > 2) {
+                break;
+            }
+
+            if (r == 'L') {
+                if (lastRecord == 'L') {
+                    lateConsecutive++;
+                } else {
+                    lateConsecutive = 1;
                 }
             }
+
+            lastRecord = r;
         }
-        for (int i = 0; i < candidates.length; i++) {
-            List<Integer> temp = new ArrayList<>();
-            for (int j = 0; j < candidates.length; j++) {
-                int valueI = candidates[i];
-                int valueJ = candidates[j];
-                if (valueI + valueJ == target) {
-                    if (valueI > valueJ) {
-                        temp.add(valueJ);
-                        temp.add(valueI);
-                    } else {
-                        temp.add(valueI);
-                        temp.add(valueJ);
-                    }
-                }
-            }
-            if (temp.size() > 0) {
-                result.add(temp);
-            }
+
+        System.out.println(lateConsecutive);
+
+        if (totalAbsentDays > 2 || lateConsecutive >= 3) {
+            return false;
         }
-        return result.stream().toList();
+
+        return true;
     }
 }
