@@ -2,36 +2,42 @@ package org.example;
 
 import java.util.*;
 
-public class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> results =
-                new HashSet<List<Integer>>();
-//        List<? extends List<Integer>> results = new ArrayList<>();
-
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 1; j < nums.length; j++) {
-                for (int k = 2; k < nums.length; k++) {
-                    HashSet<Integer> indexSet = new HashSet<>();
-                    indexSet.add(i);
-                    indexSet.add(j);
-                    indexSet.add(k);
-                    if (indexSet.size() != 3) {
-                        continue;
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Set<List<Integer>> result = new HashSet<>();
+        if (target % 2 == 0) {
+            for (int i : candidates) {
+                if (target % i == 0) {
+                    int times = target / i;
+//                    System.out.println("int => " + i);
+//                    System.out.println("times => " + times);
+                    List<Integer> temp = new ArrayList<>();
+                    for (int k = 0; k < times; k++) {
+                        temp.add(times);
                     }
-                    if (nums[i] + nums[j] + nums[k] == 0) {
-//                        System.out.println(" " + i + " " + j + " " + k);
-                        List<Integer> newList = new ArrayList<Integer>();
-                        newList.add(nums[i]);
-                        newList.add(nums[j]);
-                        newList.add(nums[k]);
-
-                        Collections.sort(newList);
-
-                        results.add(newList);
-                    }
+                    result.add(temp);
                 }
             }
         }
-        return results.stream().toList();
+        for (int i = 0; i < candidates.length; i++) {
+            List<Integer> temp = new ArrayList<>();
+            for (int j = 0; j < candidates.length; j++) {
+                int valueI = candidates[i];
+                int valueJ = candidates[j];
+                if (valueI + valueJ == target) {
+                    if (valueI > valueJ) {
+                        temp.add(valueJ);
+                        temp.add(valueI);
+                    } else {
+                        temp.add(valueI);
+                        temp.add(valueJ);
+                    }
+                }
+            }
+            if (temp.size() > 0) {
+                result.add(temp);
+            }
+        }
+        return result.stream().toList();
     }
 }
