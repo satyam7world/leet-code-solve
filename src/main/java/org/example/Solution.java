@@ -3,36 +3,21 @@ package org.example;
 import java.util.*;
 
 class Solution {
-    public boolean checkRecord(String s) {
-        char[] record = s.toCharArray();
-        char lastRecord = 'X';
-        int totalAbsentDays = 0;
-        int lateConsecutive = 1;
-        for (char r : record) {
-            if (r == 'A') {
-                totalAbsentDays++;
-            }
-            if (totalAbsentDays > 2) {
-                break;
+    public String reverseWords(String s) {
+        String result = "";
+        int indexO = 0;
+        for (String fraction : s.split(" ")) {
+            for (int i = fraction.length() - 1; i >= 0; i--) {
+                result = result.concat(String.valueOf(fraction.charAt(i)));
             }
 
-            if (r == 'L') {
-                if (lastRecord == 'L') {
-                    lateConsecutive++;
-                } else {
-                    lateConsecutive = 1;
-                }
+            indexO++;
+
+            if (indexO < s.split(" ").length) {
+                result = result.concat(" ");
             }
 
-            lastRecord = r;
         }
-
-        System.out.println(lateConsecutive);
-
-        if (totalAbsentDays > 2 || lateConsecutive >= 3) {
-            return false;
-        }
-
-        return true;
+        return result;
     }
 }
